@@ -7,14 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5652783718F0AF7400965646 /* FFTHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5652783618F0AF7400965646 /* FFTHelper.mm */; };
+		5652785618F1899700965646 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5652785518F1899700965646 /* CoreMedia.framework */; };
+		5652785718F189DF00965646 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5652784918F0B42300965646 /* MediaPlayer.framework */; };
+		5652785818F1913000965646 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5652784B18F0B63400965646 /* Accelerate.framework */; };
 		56DF39F318F06FB90031061B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DF39F218F06FB90031061B /* Foundation.framework */; };
 		56DF39F518F06FB90031061B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DF39F418F06FB90031061B /* CoreGraphics.framework */; };
 		56DF39F718F06FB90031061B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DF39F618F06FB90031061B /* UIKit.framework */; };
 		56DF39FD18F06FB90031061B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 56DF39FB18F06FB90031061B /* InfoPlist.strings */; };
 		56DF39FF18F06FB90031061B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 56DF39FE18F06FB90031061B /* main.m */; };
-		56DF3A0318F06FB90031061B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 56DF3A0218F06FB90031061B /* AppDelegate.m */; };
+		56DF3A0318F06FB90031061B /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 56DF3A0218F06FB90031061B /* AppDelegate.mm */; };
 		56DF3A0618F06FB90031061B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56DF3A0418F06FB90031061B /* Main.storyboard */; };
-		56DF3A0918F06FB90031061B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56DF3A0818F06FB90031061B /* ViewController.m */; };
+		56DF3A0918F06FB90031061B /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 56DF3A0818F06FB90031061B /* ViewController.mm */; };
 		56DF3A0B18F06FB90031061B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56DF3A0A18F06FB90031061B /* Images.xcassets */; };
 		56DF3A1218F06FBA0031061B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DF3A1118F06FBA0031061B /* XCTest.framework */; };
 		56DF3A1318F06FBA0031061B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DF39F218F06FB90031061B /* Foundation.framework */; };
@@ -22,6 +26,7 @@
 		56DF3A1C18F06FBA0031061B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 56DF3A1A18F06FBA0031061B /* InfoPlist.strings */; };
 		56DF3A1E18F06FBA0031061B /* SingWithMeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 56DF3A1D18F06FBA0031061B /* SingWithMeTests.m */; };
 		56DF3A2818F070260031061B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DF3A2718F070260031061B /* AVFoundation.framework */; };
+		56DF3A2C18F0A1250031061B /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DF3A2B18F0A1250031061B /* CoreAudio.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +40,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5652783518F0AF7400965646 /* FFTHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFTHelper.h; sourceTree = "<group>"; };
+		5652783618F0AF7400965646 /* FFTHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FFTHelper.mm; sourceTree = "<group>"; };
+		5652784718F0B3E300965646 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		5652784918F0B42300965646 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		5652784B18F0B63400965646 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		5652785518F1899700965646 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		56DF39EF18F06FB90031061B /* SingWithMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SingWithMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56DF39F218F06FB90031061B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		56DF39F418F06FB90031061B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -44,10 +55,10 @@
 		56DF39FE18F06FB90031061B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		56DF3A0018F06FB90031061B /* SingWithMe-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SingWithMe-Prefix.pch"; sourceTree = "<group>"; };
 		56DF3A0118F06FB90031061B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		56DF3A0218F06FB90031061B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		56DF3A0218F06FB90031061B /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		56DF3A0518F06FB90031061B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		56DF3A0718F06FB90031061B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		56DF3A0818F06FB90031061B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		56DF3A0818F06FB90031061B /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		56DF3A0A18F06FB90031061B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		56DF3A1018F06FBA0031061B /* SingWithMeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SingWithMeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		56DF3A1118F06FBA0031061B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -55,6 +66,9 @@
 		56DF3A1B18F06FBA0031061B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		56DF3A1D18F06FBA0031061B /* SingWithMeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SingWithMeTests.m; sourceTree = "<group>"; };
 		56DF3A2718F070260031061B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		56DF3A2918F084F80031061B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		56DF3A2B18F0A1250031061B /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		56DF3A2D18F0A12B0031061B /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +76,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5652785818F1913000965646 /* Accelerate.framework in Frameworks */,
+				5652785718F189DF00965646 /* MediaPlayer.framework in Frameworks */,
+				5652785618F1899700965646 /* CoreMedia.framework in Frameworks */,
+				56DF3A2C18F0A1250031061B /* CoreAudio.framework in Frameworks */,
 				56DF3A2818F070260031061B /* AVFoundation.framework in Frameworks */,
 				56DF39F518F06FB90031061B /* CoreGraphics.framework in Frameworks */,
 				56DF39F718F06FB90031061B /* UIKit.framework in Frameworks */,
@@ -104,6 +122,13 @@
 		56DF39F118F06FB90031061B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5652785518F1899700965646 /* CoreMedia.framework */,
+				5652784B18F0B63400965646 /* Accelerate.framework */,
+				5652784918F0B42300965646 /* MediaPlayer.framework */,
+				5652784718F0B3E300965646 /* OpenGLES.framework */,
+				56DF3A2D18F0A12B0031061B /* AudioUnit.framework */,
+				56DF3A2B18F0A1250031061B /* CoreAudio.framework */,
+				56DF3A2918F084F80031061B /* AudioToolbox.framework */,
 				56DF3A2718F070260031061B /* AVFoundation.framework */,
 				56DF39F218F06FB90031061B /* Foundation.framework */,
 				56DF39F418F06FB90031061B /* CoreGraphics.framework */,
@@ -117,10 +142,12 @@
 			isa = PBXGroup;
 			children = (
 				56DF3A0118F06FB90031061B /* AppDelegate.h */,
-				56DF3A0218F06FB90031061B /* AppDelegate.m */,
+				56DF3A0218F06FB90031061B /* AppDelegate.mm */,
 				56DF3A0418F06FB90031061B /* Main.storyboard */,
 				56DF3A0718F06FB90031061B /* ViewController.h */,
-				56DF3A0818F06FB90031061B /* ViewController.m */,
+				56DF3A0818F06FB90031061B /* ViewController.mm */,
+				5652783518F0AF7400965646 /* FFTHelper.h */,
+				5652783618F0AF7400965646 /* FFTHelper.mm */,
 				56DF3A0A18F06FB90031061B /* Images.xcassets */,
 				56DF39F918F06FB90031061B /* Supporting Files */,
 			);
@@ -256,8 +283,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56DF3A0918F06FB90031061B /* ViewController.m in Sources */,
-				56DF3A0318F06FB90031061B /* AppDelegate.m in Sources */,
+				5652783718F0AF7400965646 /* FFTHelper.mm in Sources */,
+				56DF3A0918F06FB90031061B /* ViewController.mm in Sources */,
+				56DF3A0318F06FB90031061B /* AppDelegate.mm in Sources */,
 				56DF39FF18F06FB90031061B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -473,6 +501,7 @@
 				56DF3A2318F06FBA0031061B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		56DF3A2418F06FBA0031061B /* Build configuration list for PBXNativeTarget "SingWithMeTests" */ = {
 			isa = XCConfigurationList;
@@ -481,6 +510,7 @@
 				56DF3A2618F06FBA0031061B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
