@@ -9,39 +9,12 @@
 #import "ViewController.h"
 #import "FFTHelper.h"
 
-/// max value from vector with value index (using Accelerate Framework)
-static Float32 vectorMaxValueACC32_index(Float32 *vector, unsigned long size, long step, unsigned long *outIndex) {
-    Float32 maxVal;
-    vDSP_maxvi(vector, step, &maxVal, outIndex, size);
-    return maxVal;
-}
-
-/// caculates HZ value for specified index from a FFT bins vector
-static Float32 frequencyHerzValue(long frequencyIndex, long fftVectorSize, Float32 nyquistFrequency ) {
-    return ((Float32)frequencyIndex/(Float32)fftVectorSize) * nyquistFrequency;
-}
-
-///returns HZ of the strongest frequency.
-static Float32 strongestFrequencyHZ(Float32 *buffer, FFTHelperRef *fftHelper, UInt32 frameSize, Float32 *freqValue) {
-    Float32 *fftData = computeFFT(fftHelper, buffer, frameSize);
-    fftData[0] = 0.0;
-    unsigned long length = frameSize/2.0;
-    Float32 max = 0;
-    unsigned long maxIndex = 0;
-    max = vectorMaxValueACC32_index(fftData, length, 1, &maxIndex);
-    if (freqValue!=NULL) { *freqValue = max; }
-    Float32 HZ = frequencyHerzValue(maxIndex, length, 22050);
-    return HZ;
-}
-
 
 
 @interface ViewController ()
-
 @end
 
 @implementation ViewController
-
 - (void) viewDidLoad
 {
     [super viewDidLoad];
@@ -53,47 +26,6 @@ static Float32 strongestFrequencyHZ(Float32 *buffer, FFTHelperRef *fftHelper, UI
     // Dispose of any resources that can be recreated.
 }
 
-//- (float) performAcceleratedFastFourierTransForAudioBuffer:(AudioBufferList)ioData
-//{
-//    NSUInteger * sampleIn = (NSUInteger *)ioData.mBuffers[0].mData;
-//    for (int i = 0; i < nOver2; i++) {
-//        double multiplier = 0.5 * (1 - cos(2*M_PI*i/nOver2-1));
-//        A.realp[i] = multiplier * sampleIn[i];
-//        A.imagp[i] = 0;
-//    }
-//    
-//    memset(ioData.mBuffers[0].mData, 0, ioData.mBuffers[0].mDataByteSize);
-//    vDSP_fft_zrip(setupReal, &A, stride, log2n, FFT_FORWARD);
-//    
-//    vDSP_zvmags(&A, 1, A.realp, 1, nOver2);
-//    
-//    scale = (float) 1.0 / (2 * n);
-//    
-//    vDSP_vsmul(A.realp, 1, &scale, A.realp, 1, nOver2);
-//    vDSP_vsmul(A.imagp, 1, &scale, A.imagp, 1, nOver2);
-//    
-//    vDSP_ztoc(&A, 1, (COMPLEX *)obtainedReal, 2, nOver2);
-//    
-//    int peakIndex = 0;
-//    for (size_t i=1; i < nOver2-1; ++i) {
-//        if ((obtainedReal[i] > obtainedReal[i-1]) && (obtainedReal[i] > obtainedReal[i+1]))
-//        {
-//            peakIndex = i;
-//            break;
-//        }
-//    }
-//    
-//    //here i don't know how to calculate frequency with my data
-//    float frequency = obtainedReal[peakIndex-1] / 44100 / n;
-//    
-//    vDSP_destroy_fftsetup(setupReal);
-//    free(obtainedReal);
-//    free(A.realp);
-//    free(A.imagp);
-//    
-//    return frequency;  
-//}
-
 #pragma mark - Play back controls
 -(void) playSongWithURL:(NSURL *)url
 {
@@ -103,85 +35,6 @@ static Float32 strongestFrequencyHZ(Float32 *buffer, FFTHelperRef *fftHelper, UI
     
     // Play
     [self.audioPlayer play];
-    
-    
-    // Get asset reader settings for a Linear PCM read
-	NSDictionary *audioReadOptions = [NSDictionary dictionaryWithObjectsAndKeys:
-                                      [NSNumber numberWithInt:kAudioFormatLinearPCM], AVFormatIDKey, nil];
-    
-    // Load song asset into reader
-    NSError *error = nil;
-    AVURLAsset *songAsset = [AVURLAsset URLAssetWithURL:url options:audioReadOptions];
-    NSLog(@"Total asset time %f", CMTimeGetSeconds(songAsset.duration));
-    AVAssetReader *assetReader = [AVAssetReader assetReaderWithAsset:songAsset error:&error];
-    if ( error ) {
-        NSLog (@"   playSongWithURL: error %@", error);
-		return;
-    }
-	
-    // Create an output and push values into it
-	AVAssetReaderOutput *assetReaderOutput = [AVAssetReaderAudioMixOutput
-                                               assetReaderAudioMixOutputWithAudioTracks:songAsset.tracks
-                                              audioSettings: audioReadOptions];
-	if ( ![assetReader canAddOutput: assetReaderOutput]) {
-		NSLog (@"   playSongWithURL: error can't store output");
-		return;
-	}
-	[assetReader addOutput: assetReaderOutput];
-    [assetReader startReading];
-    
-    // Read a buffer and find format
-    CMSampleBufferRef nextSampleBuffer = [assetReaderOutput copyNextSampleBuffer];
-    
-    // Main read loop
-    while ( nextSampleBuffer != nil ) {
-        
-        // Get stuff lol
-        CMItemCount numSamples = CMSampleBufferGetNumSamples(nextSampleBuffer);
-        CMBlockBufferRef audioBuffer = CMSampleBufferGetDataBuffer(nextSampleBuffer);
-        size_t lengthAtOffset;
-        size_t totalLength;
-        char *samples;
-        int ret = CMBlockBufferGetDataPointer(audioBuffer, 0, &lengthAtOffset, &totalLength, &samples);
-        if ( ret != 0 ) {
-            NSLog(@"    playSongWIthURL: error with get data");
-            break;
-        }
-        
-        // Audio buffer list
-        AudioBufferList audioBufferList;// = AAudioBufferList::Create(currentInputASBD.mChannelsPerFrame);
-        //CMBlockBufferRef blockBufferOut = nil;
-        size_t bufferListSizeNeededOut;
-        CMSampleBufferGetAudioBufferListWithRetainedBlockBuffer(nextSampleBuffer,
-                                                                &bufferListSizeNeededOut,
-                                                                &audioBufferList,
-                                                                sizeof(audioBufferList),
-                                                                kCFAllocatorSystemDefault,
-                                                                kCFAllocatorSystemDefault,
-                                                                kCMSampleBufferFlag_AudioBufferList_Assure16ByteAlignment,
-                                                                &audioBuffer);
-        
-        NSLog(@" num samples %ld", numSamples);
-        for (int bufferCount = 0; bufferCount < audioBufferList.mNumberBuffers; bufferCount++) {
-            SInt16* samples = (SInt16 *)audioBufferList.mBuffers[bufferCount].mData;
-            for (int i = 0; i < numSamples; i++) {
-                
-                // amplitude for the sample is samples[i], assuming you have linear pcm to start with
-            }
-        }
-        
-        CFRelease(nextSampleBuffer);
-        nextSampleBuffer = [assetReaderOutput copyNextSampleBuffer];
-    }
-
-//	NSArray *dirs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//	NSString *documentsDirectoryPath = [dirs objectAtIndex:0];
-//	NSString *exportPath = [documentsDirectoryPath stringByAppendingPathComponent:EXPORT_NAME];
-//	if ([[NSFileManager defaultManager] fileExistsAtPath:exportPath]) {
-//		[[NSFileManager defaultManager] removeItemAtPath:exportPath error:nil];
-//	}
-//	NSURL *exportURL = [NSURL fileURLWithPath:exportPath];
-//	__block AVAssetWriter *assetWriter = [AVAssetWriter assetWriterWithURL:exportURL
 }
 
 #pragma mark - Misc
@@ -199,6 +52,7 @@ static Float32 strongestFrequencyHZ(Float32 *buffer, FFTHelperRef *fftHelper, UI
 #endif
 }
 
+#pragma mark - Media Picker
 /* Media Picker View - Media Selected Callback */
 - (void) mediaPicker:(MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)collection
 {
@@ -221,5 +75,77 @@ static Float32 strongestFrequencyHZ(Float32 *buffer, FFTHelperRef *fftHelper, UI
 - (void) mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker
 {
     [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+#pragma mark - CoreAudio stuff
+- (void) coreAudioStuff:(NSURL *)url
+{
+    // Get asset reader settings for a Linear PCM read
+	NSDictionary *audioReadOptions = [NSDictionary
+                                      dictionaryWithObjectsAndKeys:
+                                      [NSNumber numberWithInt:kAudioFormatLinearPCM], AVFormatIDKey, nil];
+    
+    // Load song asset into reader
+    NSError *error = nil;
+    AVURLAsset *songAsset = [AVURLAsset URLAssetWithURL:url options:audioReadOptions];
+    AVAssetReader *assetReader = [AVAssetReader assetReaderWithAsset:songAsset error:&error];
+    if ( error ) {
+        NSLog (@"   playSongWithURL: error %@", error);
+		return;
+    }
+	
+    // Create an output and push values into it
+	AVAssetReaderOutput *assetReaderOutput = [AVAssetReaderAudioMixOutput
+                                              assetReaderAudioMixOutputWithAudioTracks:songAsset.tracks
+                                              audioSettings:audioReadOptions];
+	if ( ![assetReader canAddOutput: assetReaderOutput]) {
+		NSLog (@"   playSongWithURL: error can't store output");
+		return;
+	}
+	[assetReader addOutput: assetReaderOutput];
+    
+//    // Clean up and reinit our audio out buffer
+//    TPCircularBufferCleanup(_audioOutBuffer);
+//    TPCircularBufferInit(_audioOutBuffer, 1000000);
+    
+    // Read a buffer and find format
+    [assetReader startReading];
+    CMSampleBufferRef nextSampleBuffer = [assetReaderOutput copyNextSampleBuffer];
+    
+    // Main read loop
+    while ( nextSampleBuffer != nil ) {
+        // Get Audio buffer list and number of samples
+        AudioBufferList audioBufferList;
+        CMItemCount numSamplesInBuffer = CMSampleBufferGetNumSamples(nextSampleBuffer);
+        size_t bufferListSizeNeededOut;
+        CMSampleBufferGetAudioBufferListWithRetainedBlockBuffer(nextSampleBuffer,
+                                                                &bufferListSizeNeededOut,
+                                                                &audioBufferList,
+                                                                sizeof(audioBufferList),
+                                                                kCFAllocatorSystemDefault,
+                                                                kCFAllocatorSystemDefault,
+                                                                kCMSampleBufferFlag_AudioBufferList_Assure16ByteAlignment,
+                                                                nil);
+        
+        // FFT that shit
+        for (int bufferCount = 0; bufferCount < audioBufferList.mNumberBuffers; bufferCount++) {
+            SInt16* samples = (SInt16 *)audioBufferList.mBuffers[bufferCount].mData;
+            float freq = findFrequency(samples, numSamplesInBuffer);
+            self.freqLabel.text = [NSString stringWithFormat:@"freq: %f", freq];
+            NSLog(@" freq is %f", freq);
+        }
+        
+        // Add the buffer list into audio out
+//        TPCircularBufferCopyAudioBufferList(_audioOutBuffer,
+//                                            &audioBufferList,
+//                                            nil,
+//                                            kTPCircularBufferCopyAll,
+//                                            nil);
+        
+        
+        // Go next
+        CFRelease(nextSampleBuffer);
+        nextSampleBuffer = [assetReaderOutput copyNextSampleBuffer];
+    }
 }
 @end

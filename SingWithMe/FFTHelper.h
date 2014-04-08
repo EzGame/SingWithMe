@@ -21,4 +21,6 @@ FFTHelperRef * FFTHelperCreate(long numberOfSamples);
 Float32 * computeFFT(FFTHelperRef *fftHelperRef, Float32 *timeDomainData, long numSamples);
 void FFTHelperRelease(FFTHelperRef *fftHelper);
 
+float findFrequency(SInt16 *timeDomainData, long numSamples);
+
 #endif
