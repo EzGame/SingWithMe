@@ -275,7 +275,6 @@
      withScrollHistorySize:scrollHistoryLength];
     }
   }
-  
 }
 
 #pragma mark - TPCircularBuffer Utility

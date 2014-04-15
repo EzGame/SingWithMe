@@ -28,7 +28,6 @@
 
 #if TARGET_OS_IPHONE
 #import <GLKit/GLKit.h>
-@class EZAudioPlotGLKViewController;
 #elif TARGET_OS_MAC
 #import <Cocoa/Cocoa.h>
 #import <GLKit/GLKit.h>
@@ -70,8 +69,6 @@ typedef struct {
 #endif
 
 #if TARGET_OS_IPHONE
-
-// Inherited from EZPlot
 
 #elif TARGET_OS_MAC
 
@@ -179,5 +176,13 @@ typedef struct {
  */
 +(UInt32)graphSizeForDrawingType:(EZAudioPlotGLDrawType)drawingType
                   withBufferSize:(UInt32)bufferSize;
+
+#pragma mark - Hack
+/**
+ Returns a pointer to glViewController
+    This is a hack for EZAudioPlotGL+PlotWithFreq
+ @return A pointer to glViewController.
+ */
+- (id) getGLViewController;
 
 @end

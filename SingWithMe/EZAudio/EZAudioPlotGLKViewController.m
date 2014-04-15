@@ -28,30 +28,6 @@
 #import "EZAudioPlotGLKViewController.h"
 #import "EZAudio.h"
 
-@interface EZAudioPlotGLKViewController () {
-  
-  // Flags indicating whether the plots have been instantiated
-  BOOL _hasBufferPlotData;
-  BOOL _hasRollingPlotData;
-  
-  // The buffers
-  GLuint _bufferPlotVBO;
-  GLuint _rollingPlotVBO;
-  
-  // Buffers size
-  UInt32 _bufferPlotGraphSize;
-  UInt32 _rollingPlotGraphSize;
-  
-  // Rolling History
-  BOOL    _setMaxLength;
-  float   *_scrollHistory;
-  int     _scrollHistoryIndex;
-  UInt32  _scrollHistoryLength;
-  BOOL    _changingHistorySize;
-  
-}
-@end
-
 @implementation EZAudioPlotGLKViewController
 @synthesize baseEffect   = _baseEffect;
 @synthesize context      = _context;
@@ -236,7 +212,6 @@
     default:
       break;
   }
-  
 }
 
 #pragma mark - Buffer Updating By Type

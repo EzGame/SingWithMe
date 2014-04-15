@@ -26,7 +26,6 @@
 #import "TargetConditionals.h"
 
 #if TARGET_OS_IPHONE
-
 #import "EZAudioPlotGL.h"
 
 @class EZAudio;
@@ -34,7 +33,29 @@
 /**
  EZAudioPlotGLKViewController is a subclass of the GLKViewController and handles the OpenGL drawing routine for iOS OpenGL ES views. This class has not been used outside the scope of the EZAudioPlotGL, but should be safe to use by itself if the intended use case is to have a view controller take up the whole screen.
  */
-@interface EZAudioPlotGLKViewController : GLKViewController
+@interface EZAudioPlotGLKViewController : GLKViewController {
+    
+    // Flags indicating whether the plots have been instantiated
+    BOOL _hasBufferPlotData;
+    BOOL _hasRollingPlotData;
+    
+    // The buffers
+    GLuint _bufferPlotVBO;
+    GLuint _rollingPlotVBO;
+    
+    // Buffers size
+    UInt32 _bufferPlotGraphSize;
+    UInt32 _rollingPlotGraphSize;
+    
+    // Rolling History
+    BOOL    _setMaxLength;
+    float   *_scrollHistory;
+    int     _scrollHistoryIndex;
+    UInt32  _scrollHistoryLength;
+    BOOL    _changingHistorySize;
+    
+}
+
 
 #pragma mark - Properties
 ///-----------------------------------------------------------

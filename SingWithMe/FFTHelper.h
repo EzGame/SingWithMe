@@ -12,15 +12,19 @@
 typedef struct FFTHelperRef {
     FFTSetup fftSetup;
     COMPLEX_SPLIT complexA;
-    Float32 *outFFTData;
-    Float32 *invertedCheckData;
+    float *outFFTData;
+    float *invertedCheckData;
 } FFTHelperRef;
 
 
-FFTHelperRef * FFTHelperCreate(long numberOfSamples);
-Float32 * computeFFT(FFTHelperRef *fftHelperRef, Float32 *timeDomainData, long numSamples);
-void FFTHelperRelease(FFTHelperRef *fftHelper);
+FFTHelperRef*   FFTHelperCreate(int numberOfSamples);
+void            FFTHelperRelease(FFTHelperRef *fftHelper);
 
-float findFrequency(SInt16 *timeDomainData, long numSamples);
+float*          computeFFT(FFTHelperRef *fftHelperRef,
+                           float *timeDomainData,
+                           int numSamples);
 
+float           findFrequency(float *buffer,
+                              int bufferSize,
+                              int sampleRate);
 #endif

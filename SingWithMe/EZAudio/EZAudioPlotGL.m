@@ -28,7 +28,7 @@
 #import "EZAudio.h"
 
 #if TARGET_OS_IPHONE
-  #import "EZAudioPlotGLKViewController.h"
+#import "EZAudioPlotGLKViewController.h"
 @interface EZAudioPlotGL ()
 @property (nonatomic,strong,readonly) EZAudioPlotGLKViewController *glViewController;
 @end
@@ -760,4 +760,8 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink,
   return graphSize;
 }
 
+#pragma mark - Hack
+- (id) getGLViewController {
+    return _glViewController;
+}
 @end
