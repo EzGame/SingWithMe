@@ -62,15 +62,17 @@ float findFrequency(float *samples, int numSamples, int sampleRate)
     
     float *fftArray = computeFFT(helper, samples, numSamples);
     int peakIndex = 0;
+    int rollingMax = 0;
     for (int i = 1; i < numSamples/2 - 1; i++) {
-        if ((fftArray[i] > fftArray[i-1]) && (fftArray[i] > fftArray[i+1])) {
+        if ((fftArray[i] > fftArray[i-1]) && (fftArray[i] > fftArray[i+1]) && rollingMax < fftArray[i]) {
             peakIndex = i;
+            rollingMax = fftArray[i];
             break;
         }
     }
     
     // Get frequency
-    float frequency = (float)(peakIndex * sampleRate) / numSamples;
+    float frequency = (float)(peakIndex * sampleRate) / (numSamples * 2);
     
     FFTHelperRelease(helper);
     return frequency;

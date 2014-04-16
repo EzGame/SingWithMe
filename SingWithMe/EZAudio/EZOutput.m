@@ -71,8 +71,8 @@ static OSStatus OutputRenderCallback(void                        *inRefCon,
       AudioUnitSampleType *left  = (AudioUnitSampleType*)ioData->mBuffers[0].mData;
       AudioUnitSampleType *right = (AudioUnitSampleType*)ioData->mBuffers[1].mData;
       for(int i = 0; i < inNumberFrames; i++ ){
-        left[  i ] = 0.0f;
-        right[ i ] = 0.0f;
+        left[i] = 0.0f;
+        right[i] = 0.0f;
       }
       return noErr;
     };
@@ -83,9 +83,10 @@ static OSStatus OutputRenderCallback(void                        *inRefCon,
     
     // Get the desired amount of bytes to copy
     int32_t bytesToCopy = ioData->mBuffers[0].mDataByteSize;
+          
     AudioSampleType *left  = (AudioSampleType*)ioData->mBuffers[0].mData;
     AudioSampleType *right = (AudioSampleType*)ioData->mBuffers[1].mData;
-    
+      
     // Get the available bytes in the circular buffer
     int32_t availableBytes;
     AudioSampleType *buffer = TPCircularBufferTail(circularBuffer,&availableBytes);
@@ -104,6 +105,7 @@ static OSStatus OutputRenderCallback(void                        *inRefCon,
     [output.outputDataSource output:output
           shouldFillAudioBufferList:ioData
                  withNumberOfFrames:inNumberFrames];
+      
   }
   
   return noErr;

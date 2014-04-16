@@ -30,23 +30,7 @@
 #define kEZAudioFileWaveformDefaultResolution (1024)
 
 @interface EZAudioFile (){
-  
-  // Reading from the audio file
-  ExtAudioFileRef             _audioFile;
-  AudioStreamBasicDescription _clientFormat;
-  AudioStreamBasicDescription _fileFormat;
-  float                       **_floatBuffers;
-  AEFloatConverter            *_floatConverter;
-  SInt64                      _frameIndex;
-  CFURLRef                    _sourceURL;
-  Float32                     _totalDuration;
-  SInt64                      _totalFrames;
-  
-  // Waveform Data
-  float  *_waveformData;
-  UInt32 _waveformFrameRate;
-  UInt32 _waveformTotalBuffers;
-  
+    AEFloatConverter            *_floatConverter;
 }
 @end
 
@@ -349,4 +333,8 @@
   }
 }
 
+#pragma mark - HACK
+- (id) getFloatConverter {
+    return _floatConverter;
+}
 @end

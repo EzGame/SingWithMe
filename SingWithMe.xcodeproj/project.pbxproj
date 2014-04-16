@@ -43,6 +43,7 @@
 		56DF3A1C18F06FBA0031061B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 56DF3A1A18F06FBA0031061B /* InfoPlist.strings */; };
 		56DF3A1E18F06FBA0031061B /* SingWithMeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 56DF3A1D18F06FBA0031061B /* SingWithMeTests.m */; };
 		56DF3A2818F070260031061B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DF3A2718F070260031061B /* AVFoundation.framework */; };
+		56ED3C1818FE2A67008EFB12 /* EZAudioFile+AudioWithoutVocals.m in Sources */ = {isa = PBXBuildFile; fileRef = 56ED3C1718FE2A67008EFB12 /* EZAudioFile+AudioWithoutVocals.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,8 @@
 		56DF3A1D18F06FBA0031061B /* SingWithMeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SingWithMeTests.m; sourceTree = "<group>"; };
 		56DF3A2718F070260031061B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		56DF3A2918F084F80031061B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		56ED3C1618FE2A67008EFB12 /* EZAudioFile+AudioWithoutVocals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EZAudioFile+AudioWithoutVocals.h"; sourceTree = "<group>"; };
+		56ED3C1718FE2A67008EFB12 /* EZAudioFile+AudioWithoutVocals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EZAudioFile+AudioWithoutVocals.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,6 +239,8 @@
 				56DF3A0218F06FB90031061B /* AppDelegate.mm */,
 				568B338018FCC22C00DACC3D /* EZAudioPlotGL+PlotWithFreq.h */,
 				568B338118FCC22C00DACC3D /* EZAudioPlotGL+PlotWithFreq.mm */,
+				56ED3C1618FE2A67008EFB12 /* EZAudioFile+AudioWithoutVocals.h */,
+				56ED3C1718FE2A67008EFB12 /* EZAudioFile+AudioWithoutVocals.m */,
 				568B337A18FCBCFA00DACC3D /* SingModel.h */,
 				568B337B18FCBCFA00DACC3D /* SingModel.m */,
 				56DF3A0718F06FB90031061B /* SingViewController.h */,
@@ -384,6 +389,7 @@
 				568B338218FCC22C00DACC3D /* EZAudioPlotGL+PlotWithFreq.mm in Sources */,
 				56C9A10518FC83900061B1FA /* EZAudioPlayer.m in Sources */,
 				56C9A10218FC83900061B1FA /* AEFloatConverter.m in Sources */,
+				56ED3C1818FE2A67008EFB12 /* EZAudioFile+AudioWithoutVocals.m in Sources */,
 				56C9A10B18FC83900061B1FA /* EZPlot.m in Sources */,
 				5652783718F0AF7400965646 /* FFTHelper.mm in Sources */,
 				56C9A10818FC83900061B1FA /* EZAudioPlotGLKViewController.m in Sources */,

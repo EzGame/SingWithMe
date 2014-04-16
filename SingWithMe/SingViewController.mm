@@ -9,11 +9,14 @@
 #import "SingViewController.h"
 #import "FFTHelper.h"
 
-@interface SingViewController ()
+@interface SingViewController () {
+    
+}
 @property (nonatomic, strong) EZAudioFile   *currentAudioFile;
 @property (nonatomic, strong) EZMicrophone  *currentMic;
 @property (nonatomic, strong) EZRecorder    *currentRecording;
 @property (nonatomic, strong) SingModel     *model;
+@property (nonatomic)         int           currentSampleRate;
 @property (nonatomic)         BOOL          eof;
 @end
 
@@ -50,7 +53,9 @@
     [[EZOutput sharedOutput] stopPlayback];
     
     self.currentAudioFile = [EZAudioFile audioFileWithURL:aURL andDelegate:self];
+    self.currentSampleRate = [self.currentAudioFile fileFormat].mSampleRate;
     self.eof = NO;
+
     
     [[EZOutput sharedOutput] setAudioStreamBasicDescription:self.currentAudioFile.clientFormat];
     
@@ -124,8 +129,10 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if( [EZOutput sharedOutput].isPlaying ){
             float freq = [self.currentAudioPlot freqUpdateBuffer:buffer[0]
-                                                  withBufferSize:bufferSize];
-            NSLog(@"Freq = %f", freq);
+                                                  withBufferSize:bufferSize
+                                                   andSampleRate:self.currentSampleRate];
+//            NSLog(@"Freq = %f", freq);
+            self.noteDebugLabel.text = [NSString stringWithFormat:@"freq: %f[%d]", freq, numberOfChannels ];
         }
     });
 }
@@ -152,7 +159,8 @@
     dispatch_async(dispatch_get_main_queue(),^{
         // Buffer[0] is from right channel, buffer[1] is from left
         float freq = [self.currentMicPlot freqUpdateBuffer:buffer[0]
-                                            withBufferSize:bufferSize];
+                                            withBufferSize:bufferSize
+                                             andSampleRate:self.currentSampleRate];
 //        NSLog(@"Freq = %f", freq);
     });
 }
@@ -182,6 +190,7 @@
 {
     if( self.currentAudioFile ) {
         UInt32 bufferSize;
+        
         [self.currentAudioFile readFrames:frames
                           audioBufferList:audioBufferList
                                bufferSize:&bufferSize

@@ -10,16 +10,17 @@
 #import "FFTHelper.h"
 
 @implementation EZAudioPlotGL (PlotWithFreq)
-- (float) freqUpdateBuffer:(float *)buffer withBufferSize:(UInt32)bufferSize
+- (float) freqUpdateBuffer:(float *)buffer withBufferSize:(UInt32)bufferSize andSampleRate:(int)sampleRate
 {
     EZAudioPlotGLKViewController *glViewController = [self getGLViewController];
     return [glViewController freqUpdateBuffer:buffer
-                               withBufferSize:bufferSize];
+                               withBufferSize:bufferSize
+                                andSampleRate:sampleRate];
 }
 @end
 
 @implementation EZAudioPlotGLKViewController (PlotWithFreq)
-- (float) freqUpdateBuffer:(float *)buffer withBufferSize:(UInt32)bufferSize
+- (float) freqUpdateBuffer:(float *)buffer withBufferSize:(UInt32)bufferSize andSampleRate:(int)sampleRate
 {
     // Make sure the update render loop is active
     if( self.paused ) self.paused = NO;
@@ -32,11 +33,13 @@
     switch(self.plotType) {
         case EZPlotTypeBuffer:
             freqRet = [self freqUpdateBufferPlotWithAudioReceived:buffer
-                                                   withBufferSize:bufferSize];
+                                                   withBufferSize:bufferSize
+                                                    andSampleRate:sampleRate];
             break;
         case EZPlotTypeRolling:
             freqRet = [self freqUpdateRollingPlotWithAudioReceived:buffer
-                                                    withBufferSize:bufferSize];
+                                                    withBufferSize:bufferSize
+                                                     andSampleRate:sampleRate];
             break;
         default:
             break;
@@ -46,6 +49,7 @@
 
 - (float) freqUpdateBufferPlotWithAudioReceived:(float *)buffer
                                  withBufferSize:(UInt32)bufferSize
+                                  andSampleRate:(int)sampleRate
 {
     glBindBuffer(GL_ARRAY_BUFFER, _bufferPlotVBO);
     
@@ -86,6 +90,7 @@
 
 - (float) freqUpdateRollingPlotWithAudioReceived:(float *)buffer
                                   withBufferSize:(UInt32)bufferSize
+                                  andSampleRate:(int)sampleRate
 {
     glBindBuffer(GL_ARRAY_BUFFER, _rollingPlotVBO);
     
@@ -110,7 +115,8 @@
                                           atIndex:&_scrollHistoryIndex
                                        withBuffer:buffer
                                    withBufferSize:bufferSize
-                             isResolutionChanging:&_changingHistorySize];
+                             isResolutionChanging:&_changingHistorySize
+                                    andSampleRate:sampleRate];
     
     // Fill in graph data
     [EZAudioPlotGL fillGraph:graph
@@ -118,7 +124,7 @@
               forDrawingType:self.drawingType
                   withBuffer:_scrollHistory
               withBufferSize:_scrollHistoryLength
-                    withGain:self.gain];
+                    withGain:self.gain*2];
     
     // Update the drawing
     if( !_hasRollingPlotData ){
@@ -135,6 +141,17 @@
 
 @end
 
+//void buildHanWindow( float *window, int size )
+//{
+//    for( int i=0; i
+//        window[i] = .5 * ( 1 - cos( 2 * M_PI * i / (size-1.0) ) );
+//}
+//void applyWindow( float *window, float *data, int size )
+//{
+//    for( int i=0; i
+//        data[i] *= window[i] ;
+//}
+
 @implementation EZAudio (PlotWithFreq)
 + (float) freqUpdateScrollHistory:(float **)scrollHistory
                        withLength:(int)scrollHistoryLength
@@ -142,6 +159,7 @@
                        withBuffer:(float *)buffer
                    withBufferSize:(int)bufferSize
              isResolutionChanging:(BOOL*)isChanging
+                    andSampleRate:(int)sampleRate
 {
     //
     size_t floatByteSize = sizeof(float);
@@ -154,7 +172,8 @@
     
     //
     if( !*isChanging ){
-        float freq = findFrequency(buffer, bufferSize, 44100);
+        float freq = findFrequency(buffer, bufferSize, sampleRate);//22050;
+//        float freq = [self RMS:buffer length:bufferSize];
         if( *index < scrollHistoryLength ){
             float *hist = *scrollHistory;
             hist[*index] = freq;
