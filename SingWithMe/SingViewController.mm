@@ -7,11 +7,8 @@
 //
 
 #import "SingViewController.h"
-#import "FFTHelper.h"
 
-@interface SingViewController () {
-    
-}
+@interface SingViewController ()
 @property (nonatomic, strong) EZAudioFile   *currentAudioFile;
 @property (nonatomic, strong) EZMicrophone  *currentMic;
 @property (nonatomic, strong) EZRecorder    *currentRecording;
@@ -132,7 +129,7 @@
                                                   withBufferSize:bufferSize
                                                    andSampleRate:self.currentSampleRate];
 //            NSLog(@"Freq = %f", freq);
-            self.noteDebugLabel.text = [NSString stringWithFormat:@"freq: %f[%d]", freq, numberOfChannels ];
+            self.noteDebugLabel.text = [NSString stringWithFormat:@"freq: %f[%d]", freq, (int)numberOfChannels ];
         }
     });
 }
@@ -190,11 +187,11 @@
 {
     if( self.currentAudioFile ) {
         UInt32 bufferSize;
-        
         [self.currentAudioFile readFrames:frames
                           audioBufferList:audioBufferList
                                bufferSize:&bufferSize
-                                      eof:&_eof];
+                                      eof:&_eof
+                              phaseVocals:YES];
     }
 }
 @end

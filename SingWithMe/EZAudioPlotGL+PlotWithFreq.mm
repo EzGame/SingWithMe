@@ -141,17 +141,6 @@
 
 @end
 
-//void buildHanWindow( float *window, int size )
-//{
-//    for( int i=0; i
-//        window[i] = .5 * ( 1 - cos( 2 * M_PI * i / (size-1.0) ) );
-//}
-//void applyWindow( float *window, float *data, int size )
-//{
-//    for( int i=0; i
-//        data[i] *= window[i] ;
-//}
-
 @implementation EZAudio (PlotWithFreq)
 + (float) freqUpdateScrollHistory:(float **)scrollHistory
                        withLength:(int)scrollHistoryLength
@@ -161,34 +150,31 @@
              isResolutionChanging:(BOOL*)isChanging
                     andSampleRate:(int)sampleRate
 {
-    //
     size_t floatByteSize = sizeof(float);
     
-    //
+    // Create the history buffer if it doesnt exist
     if( *scrollHistory == NULL ){
-        // Create the history buffer
         *scrollHistory = (float*)calloc(kEZAudioPlotMaxHistoryBufferLength,floatByteSize);
     }
     
-    //
+    // Find the frequency to return
     if( !*isChanging ){
-        float freq = findFrequency(buffer, bufferSize, sampleRate);//22050;
-//        float freq = [self RMS:buffer length:bufferSize];
+        // TODO: Make this work
+        // We find some sort of frequency at the moment, but it seems that we need to do some sort of windowing
+        // to the set of data retrieved as the short burts of high/low frequencies are very noisy for the data.
+        // Also need to filter out the instrumentals and find a way to normalize these values appropriately.
+        float freq = findFrequency(buffer, bufferSize, sampleRate);
         if( *index < scrollHistoryLength ){
             float *hist = *scrollHistory;
             hist[*index] = freq;
             (*index)++;
-        }
-        else {
+        } else {
             [EZAudio appendValue:freq
                  toScrollHistory:*scrollHistory
            withScrollHistorySize:scrollHistoryLength];
         }
         return freq;
     }
-    
-    // TODO: temp
-    NSAssert(true, @"Break point for freq update scroll history");
     return 0;
 }
 @end

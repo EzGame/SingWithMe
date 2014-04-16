@@ -10,6 +10,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "EZAudio.h"
 #import "EZAudioPlotGL+PlotWithFreq.h"
+#import "EZAudioFile+AudioWithoutVocals.h"
 #import "SingModel.h"
 
 @interface SingViewController: UIViewController
