@@ -10,9 +10,10 @@
 #import "EZAudioFile.h"
 
 @interface EZAudioFile (AudioWithoutVocals)
-- (void) readFrames:(UInt32)frames
-    audioBufferList:(AudioBufferList *)audioBufferList
-         bufferSize:(UInt32 *)bufferSize
-                eof:(BOOL *)eof
-        phaseVocals:(BOOL)phase;
+- (void) output:(EZOutput *)output
+     readFrames:(UInt32)frames
+audioBufferList:(AudioBufferList *)audioBufferList
+     bufferSize:(UInt32 *)bufferSize
+            eof:(BOOL *)eof
+    phaseVocals:(BOOL)phase;
 @end
