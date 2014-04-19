@@ -135,9 +135,11 @@
     /* GCD block to send buffer data into plot */
     dispatch_async(dispatch_get_main_queue(), ^{
         if( [EZOutput sharedOutput].isPlaying ){
-            float freq = [self.currentAudioPlot freqUpdateBuffer:buffer[0]
-                                                  withBufferSize:bufferSize
-                                                   andSampleRate:self.currentSampleRate];
+            float value = [self.currentAudioPlot updateBuffer:buffer[0]
+                                               withBufferSize:bufferSize
+                                                andSampleRate:self.currentSampleRate
+                                                          RMS:NO];
+            self.noteDebugLabel.text = [NSString stringWithFormat:@"%f @ %d", value, self.currentSampleRate];
         }
     });
 }
@@ -162,9 +164,10 @@
 {
     /* GCD block to send buffer data into plot */
     dispatch_async(dispatch_get_main_queue(),^{
-        float freq = [self.currentMicPlot freqUpdateBuffer:buffer[0]
-                                            withBufferSize:bufferSize
-                                             andSampleRate:self.currentSampleRate];
+        float value = [self.currentMicPlot updateBuffer:buffer[0]
+                                         withBufferSize:bufferSize
+                                          andSampleRate:self.currentSampleRate
+                                                    RMS:NO];
     });
 }
 

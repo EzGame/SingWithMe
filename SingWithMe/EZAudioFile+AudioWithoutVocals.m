@@ -33,22 +33,31 @@ audioBufferList:(AudioBufferList *)audioBufferList
         if( [self.audioFileDelegate respondsToSelector:@selector(audioFile:readAudio:withBufferSize:withNumberOfChannels:)] ){
             AEFloatConverter *converter = [self getFloatConverter];
             AEFloatConverterToFloat(converter,audioBufferList,_floatBuffers,frames);
-
+            
+            // Send data
             [self.audioFileDelegate audioFile:self
                                     readAudio:_floatBuffers
                                withBufferSize:frames
                          withNumberOfChannels:_clientFormat.mChannelsPerFrame];
             
-            // Cancel out vocals 
+            // Perform phase
             if ( phase ) {
-                // Use _floatBuffers to perform phase cancellation
-                // TODO: Maybe figure out how to only take vocals (since we can cancel might be a way to do opposite)
+                // Steps from this point to perform karaoke needs:
+                float **copiedBuffers = (float **)malloc(2);
+                copiedBuffers[0] = (float *)malloc(1024*sizeof(float));
+                copiedBuffers[1] = (float *)malloc(1024*sizeof(float));
+                memcpy(copiedBuffers[0], _floatBuffers[0], frames * sizeof(float));
+                memcpy(copiedBuffers[1], _floatBuffers[1], frames * sizeof(float));
+                
+                float *left = copiedBuffers[0];
+                float *right = copiedBuffers[1];
                 for (int i = 0; i < frames; i++) {
-                    _floatBuffers[0][i] = (_floatBuffers[0][i] - _floatBuffers[1][i])/2;
-                    _floatBuffers[1][i] = _floatBuffers[0][i];
+                    left[i] = (left[i] - right[i])/2;
+                    right[i] = left[i];
                 }
-                AEFloatConverterFromFloat(converter, _floatBuffers, audioBufferList, frames);
+                AEFloatConverterFromFloat(converter, copiedBuffers, audioBufferList, frames);
             }
+
         }
     }
 }

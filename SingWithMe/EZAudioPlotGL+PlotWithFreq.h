@@ -16,20 +16,27 @@
 #import "EZAudioPlotGLKViewController.h"
 
 @interface EZAudioPlotGL (PlotWithFreq)
-- (float) freqUpdateBuffer:(float *)buffer withBufferSize:(UInt32)bufferSize andSampleRate:(int)sampleRate;
+- (float) updateBuffer:(float *)buffer
+        withBufferSize:(UInt32)bufferSize
+         andSampleRate:(int)sampleRate
+                   RMS:(BOOL)isRMS;
 
 @end
 
 @interface EZAudioPlotGLKViewController (PlotWithFreq)
-- (float) freqUpdateBuffer:(float *)buffer withBufferSize:(UInt32)bufferSize andSampleRate:(int)sampleRate;
+- (float) updateBuffer:(float *)buffer
+        withBufferSize:(UInt32)bufferSize
+         andSampleRate:(int)sampleRate
+                   RMS:(BOOL)isRMS;
 @end
 
 @interface EZAudio (PlotWithFreq)
-+ (float) freqUpdateScrollHistory:(float **)scrollHistory
-                       withLength:(int)scrollHistoryLength
-                          atIndex:(int*)index
-                       withBuffer:(float *)buffer
-                   withBufferSize:(int)bufferSize
-             isResolutionChanging:(BOOL*)isChanging
-                    andSampleRate:(int)sampleRate;
++ (float) updateScrollHistory:(float **)scrollHistory
+                   withLength:(int)scrollHistoryLength
+                      atIndex:(int*)index
+                   withBuffer:(float *)buffer
+               withBufferSize:(int)bufferSize
+         isResolutionChanging:(BOOL*)isChanging
+                andSampleRate:(int)sampleRate
+                          RMS:(BOOL)isRMS;
 @end

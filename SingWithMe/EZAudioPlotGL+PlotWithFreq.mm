@@ -10,20 +10,27 @@
 #import "FFTHelper.h"
 
 @implementation EZAudioPlotGL (PlotWithFreq)
-- (float) freqUpdateBuffer:(float *)buffer withBufferSize:(UInt32)bufferSize andSampleRate:(int)sampleRate
+- (float) updateBuffer:(float *)buffer
+        withBufferSize:(UInt32)bufferSize
+         andSampleRate:(int)sampleRate
+                   RMS:(BOOL)isRMS
 {
     EZAudioPlotGLKViewController *glViewController = [self getGLViewController];
-    return [glViewController freqUpdateBuffer:buffer
-                               withBufferSize:bufferSize
-                                andSampleRate:sampleRate];
+    return [glViewController updateBuffer:buffer
+                           withBufferSize:bufferSize
+                            andSampleRate:sampleRate
+                                      RMS:isRMS];
 }
 @end
 
 @implementation EZAudioPlotGLKViewController (PlotWithFreq)
-#define AVGWINDOW 10
-static float rollingAverage[AVGWINDOW] = {0,0,0,0,0,0,0,0,0,0};
+//#define AVGWINDOW 10
+//static float rollingAverage[AVGWINDOW] = {0,0,0,0,0,0,0,0,0,0};
 
-- (float) freqUpdateBuffer:(float *)buffer withBufferSize:(UInt32)bufferSize andSampleRate:(int)sampleRate
+- (float) updateBuffer:(float *)buffer
+        withBufferSize:(UInt32)bufferSize
+         andSampleRate:(int)sampleRate
+                   RMS:(BOOL)isRMS
 {
     // Make sure the update render loop is active
     if( self.paused ) self.paused = NO;
@@ -32,22 +39,23 @@ static float rollingAverage[AVGWINDOW] = {0,0,0,0,0,0,0,0,0,0};
     EAGLContext.currentContext = self.context;
     
     // Draw based on plot type
-    float freqRet = 0;
+    float ret = 0;
     switch(self.plotType) {
         case EZPlotTypeBuffer:
-            freqRet = [self freqUpdateBufferPlotWithAudioReceived:buffer
-                                                   withBufferSize:bufferSize
-                                                    andSampleRate:sampleRate];
+            ret = [self freqUpdateBufferPlotWithAudioReceived:buffer
+                                               withBufferSize:bufferSize
+                                                andSampleRate:sampleRate];
             break;
         case EZPlotTypeRolling:
-            freqRet = [self freqUpdateRollingPlotWithAudioReceived:buffer
-                                                    withBufferSize:bufferSize
-                                                     andSampleRate:sampleRate];
+            ret = [self updateRollingPlotWithAudioReceived:buffer
+                                            withBufferSize:bufferSize
+                                             andSampleRate:sampleRate
+                                                       RMS:isRMS];
             break;
         default:
             break;
     }
-    return freqRet;
+    return ret;
 }
 
 - (float) freqUpdateBufferPlotWithAudioReceived:(float *)buffer
@@ -91,9 +99,11 @@ static float rollingAverage[AVGWINDOW] = {0,0,0,0,0,0,0,0,0,0};
     return 0;
 }
 
-- (float) freqUpdateRollingPlotWithAudioReceived:(float *)buffer
-                                  withBufferSize:(UInt32)bufferSize
-                                  andSampleRate:(int)sampleRate
+- (float) updateRollingPlotWithAudioReceived:(float *)buffer
+                              withBufferSize:(UInt32)bufferSize
+                               andSampleRate:(int)sampleRate
+                                         RMS:(BOOL)isRMS
+
 {
     glBindBuffer(GL_ARRAY_BUFFER, _rollingPlotVBO);
     
@@ -113,13 +123,14 @@ static float rollingAverage[AVGWINDOW] = {0,0,0,0,0,0,0,0,0,0};
     EZAudioPlotGLPoint graph[_rollingPlotGraphSize];
     
     // Update the scroll history datasource
-    float freq = [EZAudio freqUpdateScrollHistory:&_scrollHistory
-                                       withLength:_scrollHistoryLength
-                                          atIndex:&_scrollHistoryIndex
-                                       withBuffer:buffer
-                                   withBufferSize:bufferSize
-                             isResolutionChanging:&_changingHistorySize
-                                    andSampleRate:sampleRate];
+    float value = [EZAudio updateScrollHistory:&_scrollHistory
+                                    withLength:_scrollHistoryLength
+                                       atIndex:&_scrollHistoryIndex
+                                    withBuffer:buffer
+                                withBufferSize:bufferSize
+                          isResolutionChanging:&_changingHistorySize
+                                 andSampleRate:sampleRate
+                                           RMS:isRMS];
     
     // Fill in graph data
     [EZAudioPlotGL fillGraph:graph
@@ -127,7 +138,7 @@ static float rollingAverage[AVGWINDOW] = {0,0,0,0,0,0,0,0,0,0};
               forDrawingType:self.drawingType
                   withBuffer:_scrollHistory
               withBufferSize:_scrollHistoryLength
-                    withGain:self.gain/500];
+                    withGain:(isRMS) ? self.gain : self.gain * 0.002];
     
     // Update the drawing
     if( !_hasRollingPlotData ){
@@ -140,29 +151,30 @@ static float rollingAverage[AVGWINDOW] = {0,0,0,0,0,0,0,0,0,0};
     
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     
-    return freq;
+    return value;
     // Update rolling average
-    if (rollingAverage[0] == 0) {
-        for (int i = 0; i < AVGWINDOW; i++) rollingAverage[i] = freq;
-    } else {
-        for (int i = AVGWINDOW - 1; i >= 0; i--) rollingAverage[i] = rollingAverage[i-1];
-        rollingAverage[0] = freq;
-    }
-    float sum = 0;
-    for (int i = 0; i < AVGWINDOW; i++) sum+= rollingAverage[i];
-    return sum/AVGWINDOW;
+//    if (rollingAverage[0] == 0) {
+//        for (int i = 0; i < AVGWINDOW; i++) rollingAverage[i] = freq;
+//    } else {
+//        for (int i = AVGWINDOW - 1; i >= 0; i--) rollingAverage[i] = rollingAverage[i-1];
+//        rollingAverage[0] = freq;
+//    }
+//    float sum = 0;
+//    for (int i = 0; i < AVGWINDOW; i++) sum+= rollingAverage[i];
+//    return sum/AVGWINDOW;
 }
 
 @end
 
 @implementation EZAudio (PlotWithFreq)
-+ (float) freqUpdateScrollHistory:(float **)scrollHistory
-                       withLength:(int)scrollHistoryLength
-                          atIndex:(int*)index
-                       withBuffer:(float *)buffer
-                   withBufferSize:(int)bufferSize
-             isResolutionChanging:(BOOL*)isChanging
-                    andSampleRate:(int)sampleRate
++ (float) updateScrollHistory:(float **)scrollHistory
+                   withLength:(int)scrollHistoryLength
+                      atIndex:(int*)index
+                   withBuffer:(float *)buffer
+               withBufferSize:(int)bufferSize
+         isResolutionChanging:(BOOL*)isChanging
+                andSampleRate:(int)sampleRate
+                          RMS:(BOOL)isRMS;
 {
     size_t floatByteSize = sizeof(float);
     
@@ -177,17 +189,17 @@ static float rollingAverage[AVGWINDOW] = {0,0,0,0,0,0,0,0,0,0};
         // We find some sort of frequency at the moment, but it seems that we need to do some sort of windowing
         // to the set of data retrieved as the short burts of high/low frequencies are very noisy for the data.
         // Also need to filter out the instrumentals and find a way to normalize these values appropriately.
-        float freq = findFrequency(buffer, bufferSize, sampleRate);
+        float value = (isRMS) ? [self RMS:buffer length:bufferSize] : findFrequency(buffer, bufferSize, sampleRate);
         if( *index < scrollHistoryLength ){
             float *hist = *scrollHistory;
-            hist[*index] = freq;
+            hist[*index] = value;
             (*index)++;
         } else {
-            [EZAudio appendValue:freq
+            [EZAudio appendValue:value
                  toScrollHistory:*scrollHistory
            withScrollHistorySize:scrollHistoryLength];
         }
-        return freq;
+        return value;
     }
     return 0;
 }
