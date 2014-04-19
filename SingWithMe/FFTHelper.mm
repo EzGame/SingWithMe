@@ -61,19 +61,20 @@ float findFrequency(float *samples, int numSamples, int sampleRate)
     FFTHelperRef *helper = FFTHelperCreate(numSamples);
     
     float *fftArray = computeFFT(helper, samples, numSamples);
-    int peakIndex = 0;
-    int rollingMax = 0;
+    float rollingFreq = 0;
+    
+    // We only want frequencies between E2(65.41 - C6(1046.50)
     for (int i = 1; i < numSamples/2 - 1; i++) {
-        if ((fftArray[i] > fftArray[i-1]) && (fftArray[i] > fftArray[i+1]) && rollingMax < fftArray[i]) {
-            peakIndex = i;
-            rollingMax = fftArray[i];
-            break;
+        if ((fftArray[i] > fftArray[i-1]) && (fftArray[i] > fftArray[i+1])) {
+            float tempFreq = (float)(i * sampleRate) / (numSamples * 2);
+            if ( tempFreq > 1046.5 ) {
+                break;
+            } else {
+                rollingFreq = tempFreq;
+                break;
+            }
         }
     }
-    
-    // Get frequency
-    float frequency = (float)(peakIndex * sampleRate) / (numSamples * 2);
-    
     FFTHelperRelease(helper);
-    return frequency;
+    return rollingFreq;
 }

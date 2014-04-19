@@ -42,8 +42,9 @@ audioBufferList:(AudioBufferList *)audioBufferList
             // Cancel out vocals 
             if ( phase ) {
                 // Use _floatBuffers to perform phase cancellation
+                // TODO: Maybe figure out how to only take vocals (since we can cancel might be a way to do opposite)
                 for (int i = 0; i < frames; i++) {
-                    _floatBuffers[0][i] = _floatBuffers[0][i] - _floatBuffers[1][i];
+                    _floatBuffers[0][i] = (_floatBuffers[0][i] - _floatBuffers[1][i])/2;
                     _floatBuffers[1][i] = _floatBuffers[0][i];
                 }
                 AEFloatConverterFromFloat(converter, _floatBuffers, audioBufferList, frames);

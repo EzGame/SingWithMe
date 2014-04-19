@@ -53,7 +53,6 @@
     self.currentSampleRate = [self.currentAudioFile fileFormat].mSampleRate;
     self.eof = NO;
 
-    
     [[EZOutput sharedOutput] setAudioStreamBasicDescription:self.currentAudioFile.clientFormat];
     
     /* Load mic */
@@ -71,13 +70,20 @@
     if( ![[EZOutput sharedOutput] isPlaying] ){
         [EZOutput sharedOutput].outputDataSource = self;
         [[EZOutput sharedOutput] startPlayback];
-        [self.currentMic startFetchingAudio];
-        self.noteDebugLabel.text = @"Mic ON";
     }
     /* Pause */
     else {
         [EZOutput sharedOutput].outputDataSource = nil;
         [[EZOutput sharedOutput] stopPlayback];
+    }
+    
+    /* Record */
+    if (!self.currentMic.microphoneOn) {
+        [self.currentMic startFetchingAudio];
+        self.noteDebugLabel.text = @"Mic ON";
+    }
+    /* Pause */
+    else {
         [self.currentMic stopFetchingAudio];
         self.noteDebugLabel.text = @"Mic OFF";
     }
@@ -85,6 +91,10 @@
 
 - (IBAction) pickSong:(id)sender
 {
+    /* We toggle the playback so that it pauses mic automatically */
+    if ( [[EZOutput sharedOutput] isPlaying] )
+        [self playToggle:nil];
+    
     /* Create a Media Picker Menu and set it as present view */
     MPMediaPickerController *picker = [[MPMediaPickerController alloc] initWithMediaTypes:MPMediaTypeMusic];
     [picker setDelegate:self];
@@ -128,8 +138,6 @@
             float freq = [self.currentAudioPlot freqUpdateBuffer:buffer[0]
                                                   withBufferSize:bufferSize
                                                    andSampleRate:self.currentSampleRate];
-//            NSLog(@"Freq = %f", freq);
-            self.noteDebugLabel.text = [NSString stringWithFormat:@"freq: %f[%d]", freq, (int)numberOfChannels ];
         }
     });
 }
@@ -154,11 +162,9 @@
 {
     /* GCD block to send buffer data into plot */
     dispatch_async(dispatch_get_main_queue(),^{
-        // Buffer[0] is from right channel, buffer[1] is from left
         float freq = [self.currentMicPlot freqUpdateBuffer:buffer[0]
                                             withBufferSize:bufferSize
                                              andSampleRate:self.currentSampleRate];
-//        NSLog(@"Freq = %f", freq);
     });
 }
 
@@ -187,11 +193,12 @@
 {
     if( self.currentAudioFile ) {
         UInt32 bufferSize;
-        [self.currentAudioFile readFrames:frames
-                          audioBufferList:audioBufferList
-                               bufferSize:&bufferSize
-                                      eof:&_eof
-                              phaseVocals:YES];
+        [self.currentAudioFile output:output
+                           readFrames:frames
+                      audioBufferList:audioBufferList
+                           bufferSize:&bufferSize
+                                  eof:&_eof
+                          phaseVocals:self.phaseCancel.on];
     }
 }
 @end

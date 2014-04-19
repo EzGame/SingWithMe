@@ -23,8 +23,10 @@
 @property (weak, nonatomic) IBOutlet UIButton       *playToggleButton;
 @property (weak, nonatomic) IBOutlet UILabel        *currentSongLabel;
 @property (weak, nonatomic) IBOutlet UILabel        *noteDebugLabel;
+@property (weak, nonatomic) IBOutlet UISwitch       *phaseCancel;
 @property (weak, nonatomic) IBOutlet EZAudioPlotGL  *currentAudioPlot;
 @property (weak, nonatomic) IBOutlet EZAudioPlotGL  *currentMicPlot;
+
 
 - (IBAction) playToggle:(id)sender;
 - (IBAction) pickSong:(id)sender;

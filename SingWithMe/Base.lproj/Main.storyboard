@@ -62,6 +62,10 @@
                                 <color key="backgroundColor" red="0.072811157191417314" green="0.23482082201086951" blue="0.20554618352868856" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aCK-hS-zYI">
+                                <rect key="frame" x="251" y="424" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -70,6 +74,7 @@
                         <outlet property="currentMicPlot" destination="558-3c-rhl" id="i4P-sK-sGj"/>
                         <outlet property="currentSongLabel" destination="VNt-7b-LA1" id="w6K-7Z-bjW"/>
                         <outlet property="noteDebugLabel" destination="N8V-fa-oml" id="iUd-Ff-FqH"/>
+                        <outlet property="phaseCancel" destination="aCK-hS-zYI" id="nJs-wN-G0q"/>
                         <outlet property="pickSongButton" destination="wvV-un-3WE" id="8ut-bk-LdP"/>
                         <outlet property="playToggleButton" destination="r4g-lW-0lq" id="ci9-7P-1qU"/>
                     </connections>
