@@ -134,6 +134,8 @@
 {
     /* GCD block to send buffer data into plot */
     dispatch_async(dispatch_get_main_queue(), ^{
+        // TODO: Implement a large enough window to capture vocal data (maybe like half a second).
+        // TODO: Create a system that returns a set of frequencies within the human vocal range (5?)
         if( [EZOutput sharedOutput].isPlaying ){
             float value = [self.currentAudioPlot updateBuffer:buffer[0]
                                                withBufferSize:bufferSize

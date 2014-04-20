@@ -24,8 +24,6 @@
 @end
 
 @implementation EZAudioPlotGLKViewController (PlotWithFreq)
-//#define AVGWINDOW 10
-//static float rollingAverage[AVGWINDOW] = {0,0,0,0,0,0,0,0,0,0};
 
 - (float) updateBuffer:(float *)buffer
         withBufferSize:(UInt32)bufferSize
@@ -152,16 +150,6 @@
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     
     return value;
-    // Update rolling average
-//    if (rollingAverage[0] == 0) {
-//        for (int i = 0; i < AVGWINDOW; i++) rollingAverage[i] = freq;
-//    } else {
-//        for (int i = AVGWINDOW - 1; i >= 0; i--) rollingAverage[i] = rollingAverage[i-1];
-//        rollingAverage[0] = freq;
-//    }
-//    float sum = 0;
-//    for (int i = 0; i < AVGWINDOW; i++) sum+= rollingAverage[i];
-//    return sum/AVGWINDOW;
 }
 
 @end

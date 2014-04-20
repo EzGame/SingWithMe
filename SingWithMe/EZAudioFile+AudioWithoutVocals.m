@@ -42,7 +42,8 @@ audioBufferList:(AudioBufferList *)audioBufferList
             
             // Perform phase
             if ( phase ) {
-                // Steps from this point to perform karaoke needs:
+                // TODO: Test if this method still affects output graph if vocals are phased out
+                // (Should not do that)
                 float **copiedBuffers = (float **)malloc(2);
                 copiedBuffers[0] = (float *)malloc(1024*sizeof(float));
                 copiedBuffers[1] = (float *)malloc(1024*sizeof(float));
