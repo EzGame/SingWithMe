@@ -15,6 +15,8 @@
 		568B337C18FCBCFA00DACC3D /* SingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 568B337B18FCBCFA00DACC3D /* SingModel.m */; };
 		568B338218FCC22C00DACC3D /* EZAudioPlotGL+PlotWithFreq.mm in Sources */ = {isa = PBXBuildFile; fileRef = 568B338118FCC22C00DACC3D /* EZAudioPlotGL+PlotWithFreq.mm */; };
 		568B338318FCD17E00DACC3D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5652784B18F0B63400965646 /* Accelerate.framework */; };
+		568E0B5C192A94FC00941023 /* LyricsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 568E0B5B192A94FC00941023 /* LyricsViewController.m */; };
+		568E0B5F192AA8F900941023 /* SyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 568E0B5E192AA8F900941023 /* SyncViewController.m */; };
 		56C9A10218FC83900061B1FA /* AEFloatConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C9A0E718FC83900061B1FA /* AEFloatConverter.m */; };
 		56C9A10318FC83900061B1FA /* EZAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C9A0E918FC83900061B1FA /* EZAudio.m */; };
 		56C9A10418FC83900061B1FA /* EZAudioFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 56C9A0EB18FC83900061B1FA /* EZAudioFile.m */; };
@@ -67,6 +69,10 @@
 		568B337B18FCBCFA00DACC3D /* SingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingModel.m; sourceTree = "<group>"; };
 		568B338018FCC22C00DACC3D /* EZAudioPlotGL+PlotWithFreq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EZAudioPlotGL+PlotWithFreq.h"; sourceTree = "<group>"; };
 		568B338118FCC22C00DACC3D /* EZAudioPlotGL+PlotWithFreq.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "EZAudioPlotGL+PlotWithFreq.mm"; sourceTree = "<group>"; };
+		568E0B5A192A94FC00941023 /* LyricsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyricsViewController.h; sourceTree = "<group>"; };
+		568E0B5B192A94FC00941023 /* LyricsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyricsViewController.m; sourceTree = "<group>"; };
+		568E0B5D192AA8F900941023 /* SyncViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncViewController.h; sourceTree = "<group>"; };
+		568E0B5E192AA8F900941023 /* SyncViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncViewController.m; sourceTree = "<group>"; };
 		56C9A0E618FC83900061B1FA /* AEFloatConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEFloatConverter.h; sourceTree = "<group>"; };
 		56C9A0E718FC83900061B1FA /* AEFloatConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEFloatConverter.m; sourceTree = "<group>"; };
 		56C9A0E818FC83900061B1FA /* EZAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudio.h; sourceTree = "<group>"; };
@@ -245,7 +251,11 @@
 				568B337B18FCBCFA00DACC3D /* SingModel.m */,
 				56DF3A0718F06FB90031061B /* SingViewController.h */,
 				56DF3A0818F06FB90031061B /* SingViewController.mm */,
+				568E0B5A192A94FC00941023 /* LyricsViewController.h */,
+				568E0B5B192A94FC00941023 /* LyricsViewController.m */,
 				56DF3A0418F06FB90031061B /* Main.storyboard */,
+				568E0B5D192AA8F900941023 /* SyncViewController.h */,
+				568E0B5E192AA8F900941023 /* SyncViewController.m */,
 				56DF3A0A18F06FB90031061B /* Images.xcassets */,
 				56DF39F918F06FB90031061B /* Supporting Files */,
 			);
@@ -396,12 +406,14 @@
 				56C9A10D18FC83900061B1FA /* TPCircularBuffer.c in Sources */,
 				56C9A10C18FC83900061B1FA /* EZRecorder.m in Sources */,
 				56C9A10418FC83900061B1FA /* EZAudioFile.m in Sources */,
+				568E0B5F192AA8F900941023 /* SyncViewController.m in Sources */,
 				56C9A10718FC83900061B1FA /* EZAudioPlotGL.m in Sources */,
 				56DF3A0918F06FB90031061B /* SingViewController.mm in Sources */,
 				56C9A10918FC83900061B1FA /* EZMicrophone.m in Sources */,
 				56C9A10318FC83900061B1FA /* EZAudio.m in Sources */,
 				56DF3A0318F06FB90031061B /* AppDelegate.mm in Sources */,
 				56C9A10A18FC83900061B1FA /* EZOutput.m in Sources */,
+				568E0B5C192A94FC00941023 /* LyricsViewController.m in Sources */,
 				56DF39FF18F06FB90031061B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

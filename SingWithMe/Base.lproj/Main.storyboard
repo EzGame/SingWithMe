@@ -1,13 +1,137 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Q25-dc-e4S">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Sing View Controller-->
+        <!--Lyrics View Controller - Lyrics-->
+        <scene sceneID="mGh-46-efS">
+            <objects>
+                <viewController storyboardIdentifier="LyricsVC" title="Lyrics" useStoryboardIdentifierAsRestorationIdentifier="YES" id="S5X-h3-Saz" customClass="LyricsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DNe-eL-K7i"/>
+                        <viewControllerLayoutGuide type="bottom" id="iD0-Vy-5ka"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zbF-Q1-MEb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="whU-Hg-e7J">
+                                <rect key="frame" x="107" y="46" width="106" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Choose a Song">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pickSong:" destination="S5X-h3-Saz" eventType="touchUpInside" id="XOr-Pb-EYO"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="3SN-3M-7mY">
+                                <rect key="frame" x="40" y="79" width="240" height="300"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zCj-wh-I02">
+                                <rect key="frame" x="243" y="387" width="37" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Right">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="C25-LO-S2r" kind="push" identifier="transitionSyncVC" id="CWF-8n-qiW"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="La8-TG-Hle">
+                                <rect key="frame" x="40" y="386" width="45" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Wrong">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="wrong:" destination="S5X-h3-Saz" eventType="touchUpInside" id="kaM-gq-Wqs"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="dWO-G4-coD"/>
+                    <connections>
+                        <outlet property="lyricalTextView" destination="3SN-3M-7mY" id="VfT-Dx-7kU"/>
+                        <outlet property="pickSongButton" destination="whU-Hg-e7J" id="C5e-JH-DyQ"/>
+                        <outlet property="rightButton" destination="zCj-wh-I02" id="uzB-rw-o6F"/>
+                        <outlet property="wrongButton" destination="La8-TG-Hle" id="2Tg-ub-idr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a8K-Zu-sAZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-733" y="-670"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="j9x-u2-WBv">
+            <objects>
+                <navigationController definesPresentationContext="YES" navigationBarHidden="YES" id="Q25-dc-e4S" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5FF-on-bQy">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="qHl-5f-uU2">
+                        <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="S5X-h3-Saz" kind="relationship" relationship="rootViewController" id="Rnc-0L-0lt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p1f-VD-StS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-733" y="-1357"/>
+        </scene>
+        <!--Sync View Controller-->
+        <scene sceneID="J0I-IN-4ym">
+            <objects>
+                <viewController storyboardIdentifier="SyncVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="C25-LO-S2r" customClass="SyncViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FvO-CK-zZ3"/>
+                        <viewControllerLayoutGuide type="bottom" id="Eir-KL-Is5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="86V-A3-oqu">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qjt-xf-FOT">
+                                <rect key="frame" x="144" y="371" width="33" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Start">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="start:" destination="C25-LO-S2r" eventType="touchUpInside" id="uj0-Ev-soE"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1qW-It-rVX" customClass="EZAudioPlotGL">
+                                <rect key="frame" x="0.0" y="20" width="320" height="250"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Acv-DU-Sbs"/>
+                    <connections>
+                        <outlet property="audioPlot" destination="1qW-It-rVX" id="OBE-rB-EyC"/>
+                        <outlet property="startButton" destination="qjt-xf-FOT" id="d6L-80-elx"/>
+                        <segue destination="vXZ-lx-hvc" kind="push" id="RwM-Ua-lln"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9xb-si-Mh8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-199" y="-670"/>
+        </scene>
+        <!--Sing View Controller - Sing-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="SingViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SingVC" title="Sing" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vXZ-lx-hvc" customClass="SingViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FnZ-IT-rDZ"/>
                         <viewControllerLayoutGuide type="bottom" id="Hb5-wG-jJH"/>
@@ -69,6 +193,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="UOg-cc-2G4"/>
                     <connections>
                         <outlet property="currentAudioPlot" destination="XiS-jd-3h1" id="El3-KU-fkh"/>
                         <outlet property="currentMicPlot" destination="558-3c-rhl" id="i4P-sK-sGj"/>
@@ -81,6 +206,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="351" y="-670"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
