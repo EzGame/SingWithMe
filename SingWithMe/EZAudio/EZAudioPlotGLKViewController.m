@@ -259,9 +259,7 @@
                                   withBufferSize:(UInt32)bufferSize {
   
   glBindBuffer(GL_ARRAY_BUFFER, _rollingPlotVBO);
-  
-  
-  
+    
   // If starting with a VBO of half of our max size make sure we initialize it to anticipate
   // a filled graph (which needs 2 * bufferSize) to allocate its resources properly
   if( !_hasRollingPlotData ){

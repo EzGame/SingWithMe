@@ -46,6 +46,7 @@
 		56DF3A1E18F06FBA0031061B /* SingWithMeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 56DF3A1D18F06FBA0031061B /* SingWithMeTests.m */; };
 		56DF3A2818F070260031061B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DF3A2718F070260031061B /* AVFoundation.framework */; };
 		56ED3C1818FE2A67008EFB12 /* EZAudioFile+AudioWithoutVocals.m in Sources */ = {isa = PBXBuildFile; fileRef = 56ED3C1718FE2A67008EFB12 /* EZAudioFile+AudioWithoutVocals.m */; };
+		56F7DF19192D58E2009B522E /* AudioLyricalTrackScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F7DF18192D58E2009B522E /* AudioLyricalTrackScrollView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +122,8 @@
 		56DF3A2918F084F80031061B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		56ED3C1618FE2A67008EFB12 /* EZAudioFile+AudioWithoutVocals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EZAudioFile+AudioWithoutVocals.h"; sourceTree = "<group>"; };
 		56ED3C1718FE2A67008EFB12 /* EZAudioFile+AudioWithoutVocals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EZAudioFile+AudioWithoutVocals.m"; sourceTree = "<group>"; };
+		56F7DF17192D58E2009B522E /* AudioLyricalTrackScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioLyricalTrackScrollView.h; sourceTree = "<group>"; };
+		56F7DF18192D58E2009B522E /* AudioLyricalTrackScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioLyricalTrackScrollView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +259,8 @@
 				56DF3A0418F06FB90031061B /* Main.storyboard */,
 				568E0B5D192AA8F900941023 /* SyncViewController.h */,
 				568E0B5E192AA8F900941023 /* SyncViewController.m */,
+				56F7DF17192D58E2009B522E /* AudioLyricalTrackScrollView.h */,
+				56F7DF18192D58E2009B522E /* AudioLyricalTrackScrollView.m */,
 				56DF3A0A18F06FB90031061B /* Images.xcassets */,
 				56DF39F918F06FB90031061B /* Supporting Files */,
 			);
@@ -409,6 +414,7 @@
 				568E0B5F192AA8F900941023 /* SyncViewController.m in Sources */,
 				56C9A10718FC83900061B1FA /* EZAudioPlotGL.m in Sources */,
 				56DF3A0918F06FB90031061B /* SingViewController.mm in Sources */,
+				56F7DF19192D58E2009B522E /* AudioLyricalTrackScrollView.m in Sources */,
 				56C9A10918FC83900061B1FA /* EZMicrophone.m in Sources */,
 				56C9A10318FC83900061B1FA /* EZAudio.m in Sources */,
 				56DF3A0318F06FB90031061B /* AppDelegate.mm in Sources */,

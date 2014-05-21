@@ -33,6 +33,10 @@
     self.audioPlot.plotType = EZPlotTypeRolling;
     self.audioPlot.shouldFill = YES;
     self.audioPlot.shouldMirror = NO;
+    
+    /* Create lyrical stack */
+    // TODO: Think about making this syllables instead of whole words (easier to listen and tap to)
+    [self updateLyricsTextView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,16 +57,43 @@
 - (IBAction)start:(id)sender
 {
     [self loadSongFromURL:self.songURL];
-    /* Play */
+    
+    [EZOutput sharedOutput].outputDataSource = self;
+    [[EZOutput sharedOutput] startPlayback];
+    
+    self.pauseButton.hidden = NO;
+    self.startButton.hidden = YES;
+}
+
+- (IBAction)pause:(id)sender
+{
     if( ![[EZOutput sharedOutput] isPlaying] ){
         [EZOutput sharedOutput].outputDataSource = self;
         [[EZOutput sharedOutput] startPlayback];
-    }
-    /* Pause */
-    else {
+    } else {
         [EZOutput sharedOutput].outputDataSource = nil;
         [[EZOutput sharedOutput] stopPlayback];
     }
+}
+
+- (IBAction)tapGesture:(id)sender
+{
+    if ( [[EZOutput sharedOutput] isPlaying] ) {
+        NSRange spaceRange = [self.lyrics rangeOfString:@" "];
+        NSRange newlineRange = [self.lyrics rangeOfString:@"\n"];
+        NSRange replaceRange = (spaceRange.location < newlineRange.location) ? spaceRange : newlineRange;
+        if (replaceRange.location != NSNotFound){
+            replaceRange.length = replaceRange.location + 1;
+            replaceRange.location = 0;
+            self.lyrics = [self.lyrics stringByReplacingCharactersInRange:replaceRange withString:@""];
+        }
+        [self updateLyricsTextView];
+    }
+}
+
+- (void) updateLyricsTextView
+{
+    self.lyricsTextView.text = self.lyrics;
 }
 
 #pragma mark - EZAudioFileDelegate

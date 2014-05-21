@@ -105,7 +105,9 @@
     range.location = start.location + start.length;
     range.length = end.location - start.location - end.length - 2;  // 2 is the magic number
     
-    NSString *parsed = [[html substringWithRange:range] stringByReplacingOccurrencesOfString:@"<br />" withString:@""];
+    NSString *parsed = [[[[html substringWithRange:range]
+                         stringByReplacingOccurrencesOfString:@"<br />" withString:@""]
+                         stringByReplacingOccurrencesOfString:@"\n\n" withString:@"\n"] substringFromIndex:2];
     
     return parsed;
 }

@@ -13,9 +13,12 @@
 <EZAudioFileDelegate,
 EZOutputDataSource>
 
-@property (weak, nonatomic) IBOutlet EZAudioPlotGL *audioPlot;
-@property (weak, nonatomic) IBOutlet UIButton *startButton;
-@property (nonatomic, strong) NSString      *lyrics;
-@property (nonatomic, strong) NSURL         *songURL;
-@property (nonatomic, strong) EZAudioFile   *songFile;
+@property (weak, nonatomic) IBOutlet EZAudioPlotGL  *audioPlot;
+@property (weak, nonatomic) IBOutlet UIButton       *startButton;
+@property (weak, nonatomic) IBOutlet UIButton       *pauseButton;
+@property (weak, nonatomic) IBOutlet UITextView     *lyricsTextView;
+@property (nonatomic, strong) NSString              *lyrics;
+@property (nonatomic, strong) NSMutableArray        *lyricStack;
+@property (nonatomic, strong) NSURL                 *songURL;
+@property (nonatomic, strong) EZAudioFile           *songFile;
 @end

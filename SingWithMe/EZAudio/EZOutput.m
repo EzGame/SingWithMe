@@ -255,7 +255,16 @@ static OSStatus OutputRenderCallback(void                        *inRefCon,
                                             &_outputASBD,
                                             sizeof(_outputASBD))
              operation:"Couldn't set the ASBD for input scope/bos 0"];
-  
+//    
+//  UInt32 audioRoute = kAudioSessionOverrideAudioRoute_Speaker;
+//  [EZAudio checkResult:AudioUnitSetProperty(_outputUnit,
+//                                            kAudioSessionProperty_OverrideAudioRoute,
+//                                            kAudioUnitScope_Input,
+//                                            bus0,
+//                                            &audioRoute,
+//                                            sizeof(audioRoute))
+//             operation:"Couldn't redirect audio output"];
+    
   //
   AURenderCallbackStruct input;
   input.inputProc = OutputRenderCallback;
